@@ -31,7 +31,7 @@ app.post("/", (req, resp) => {
                 pprice: req.body.pprice,
                 pcat: req.body.pcat,
                 pdesc: req.body.pdesc,
-                pimg: "http://localhost:4000/uploads/" +req.file.filename
+                pimg: "https://ecommerce-m1v2.onrender.com/uploads/" +req.file.filename
             })
             const entry = newData.save()
             resp.send("Data Save Successfully")
