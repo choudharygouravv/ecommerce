@@ -31,7 +31,7 @@ app.post("/", (req, resp) => {
                 pprice: req.body.pprice,
                 pcat: req.body.pcat,
                 pdesc: req.body.pdesc,
-                pimg: "https://ecommerce-m1v2.onrender.com/uploads/" +req.file.filename
+                pimg: "http://localhost:4000/uploads/" +req.file.filename
             })
             const entry = newData.save()
             resp.send("Data Save Successfully")
@@ -51,12 +51,27 @@ app.put("/", (req, resp) => {
                 pprice: req.body.pprice,
                 pcat: req.body.pcat,
                 pdesc: req.body.pdesc,
-                pimg: "http://localhost:4000/uploads/" +req.file.filename
+                pimg: "https://ecommerce-m1v2.onrender.com//uploads/" +req.file.filename
         }})
             
             resp.send(newData)
         }
     })
+})
+
+app.get("/:key",async (req,resp)=>{
+    const data = await pSchema.find({pid:req.params.key})
+    resp.send(data)
+})
+
+app.get("/category/:key", async (req,resp)=>{
+    // resp.send(req.params.key)
+    const data = await pSchema.find({
+        "$or":[
+            {"pcat":{$regex:req.params.key}}
+        ]
+    })
+    resp.send(data)
 })
 
 app.get("/",async (req,resp)=>{
